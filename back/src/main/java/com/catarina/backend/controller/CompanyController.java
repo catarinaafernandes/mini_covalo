@@ -54,6 +54,7 @@ public class CompanyController {
 
     //update an existing company by its id
     // TO DO: restrict updates ti company admins of the supplier company that owns the product
+    //auth and auth not implemented yet
     @PutMapping("/{id}")
     public ResponseEntity<Company> updateCompany(@PathVariable Long id, @RequestBody Company updatedCompany) {
         Company updated = companyService.updateCompany(id, updatedCompany);
@@ -65,8 +66,7 @@ public class CompanyController {
         }
 
 
-    //allows suplier company admins to update product info by its id
-    //auth and auth not implemented yet
+    // TO DO: add delete endpoint for companies, restrict to companies (not mentioned in stories)
 
         
         }
