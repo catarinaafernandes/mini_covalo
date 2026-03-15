@@ -1,8 +1,6 @@
 package com.catarina.backend.service;
 
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.catarina.backend.repo.ProductRepo;
 import com.catarina.backend.model.Product;
@@ -13,7 +11,7 @@ import com.catarina.backend.model.Product;
 //service responsible for product business logic
 @Service
 public class ProductService {
-    @Autowired
+    
     //repo used to acess product data from DB
     private final ProductRepo productRepo;
 

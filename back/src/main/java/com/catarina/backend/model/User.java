@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 
 @Entity
 //represents a user in the DB and returned by the REST endpoints
+@Table(name = "users") //because user is a reserved keyword in some DBs, we name the table users instead
 public class User {
     //these will be columns in the DB table for users
     //db generates the id as an auto incrementing value and it is the primary key
@@ -17,7 +18,7 @@ public class User {
     private String name;
     
     @Column(unique = true)
-    //because cannot have t2users with the same email, it is unique in the DB
+    //because cannot have 2 users with the same email, it is unique in the DB
     private String email;
 
     @Enumerated(EnumType.STRING)
