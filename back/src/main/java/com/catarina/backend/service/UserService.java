@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 import com.catarina.backend.repo.UserRepo;
+import com.catarina.backend.model.Role;
 import com.catarina.backend.model.User;
 
 //user business logic here
@@ -18,7 +19,7 @@ public class UserService {
         this.userRepo = userRepo;
     }
 
-    //getters and setters for user data
+    //returns all users from the DB
     public List<User> getAllUsers() {
         return userRepo.findAll();
     }
@@ -27,15 +28,25 @@ public class UserService {
         return userRepo.findById(id).orElse(null);
     }
 
-
+    //create a new user in the DB
     public User saveUser(User user) {
+        if (user.getRole() == Role.COMPANY_ADMIN && user.getCompany() == null) {
+            throw new IllegalArgumentException("Company Admin must be associated with a company");
+        }
         return userRepo.save(user);
     }
 
+
+    //update an existing user by its id
     public User updateUser(Long id, User updatedUser) {
         User existingUser = userRepo.findById(id).orElse(null);
 
         if (existingUser != null) {
+
+            if(updatedUser.getRole() == Role.COMPANY_ADMIN && updatedUser.getCompany() == null) {
+                throw new IllegalArgumentException("Company Admin must be associated with a company");
+            }
+
             existingUser.setName(updatedUser.getName());
             existingUser.setEmail(updatedUser.getEmail());
             existingUser.setRole(updatedUser.getRole());

@@ -40,13 +40,15 @@ public class ProductService {
 
     //saves a product to the DB
     public Product saveProduct(Product product) {
+        if (product.getCompany() == null) {
+            throw new IllegalArgumentException("Product must be associated with a company");
+        }
         return productRepo.save(product);
     }
 
 
 
     //updates a product in the DB
-
     public Product updateProduct(Long id, Product updatedProduct) {
         Product existingProduct = productRepo.findById(id).orElse(null);
 
@@ -54,6 +56,8 @@ public class ProductService {
             existingProduct.setName(updatedProduct.getName());
             existingProduct.setDescription(updatedProduct.getDescription());
             existingProduct.setImageUrl(updatedProduct.getImageUrl());
+            existingProduct.setCompany(updatedProduct.getCompany());
+
             return productRepo.save(existingProduct);
         } else {
             return null; // or throw an exception
@@ -65,4 +69,4 @@ public class ProductService {
 }
 
 
-// TODO: add error handling for product operations
+// TO DO: add error handling for product operations

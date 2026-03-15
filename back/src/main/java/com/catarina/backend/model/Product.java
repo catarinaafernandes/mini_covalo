@@ -1,9 +1,12 @@
 package com.catarina.backend.model;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 
 
@@ -22,6 +25,14 @@ public class Product {
     private String description;
     //stored as url instead of a file to be simpler
     private String imageUrl;
+
+    @ManyToOne
+    //each product belongs to a company
+    //different products can belong to the same company
+    @JoinColumn(name = "company_id")
+    //fk col in the products table that references the company table
+    private Company company;
+
 
 
     //constructor
@@ -50,6 +61,13 @@ public class Product {
 
     public String getImageUrl() {
         return imageUrl;
+
+    }
+
+
+    //was missing, saw when tested with postman
+    public Company getCompany() {
+        return company;
     }
 
     //setters
@@ -70,6 +88,10 @@ public class Product {
     }
 
 
+    //was missing, saw when tested with postman
+    public void setCompany(Company company) {
+        this.company = company;
+    }
 
 
 }
