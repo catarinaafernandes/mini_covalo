@@ -51,8 +51,12 @@ public class ProductService {
     //updates a product in the DB
     public Product updateProduct(Long id, Product updatedProduct) {
         Product existingProduct = productRepo.findById(id).orElse(null);
+        
 
         if (existingProduct != null) {
+            if (updatedProduct.getCompany() == null) {
+                throw new IllegalArgumentException("Product must be associated with a company");
+            }   
             existingProduct.setName(updatedProduct.getName());
             existingProduct.setDescription(updatedProduct.getDescription());
             existingProduct.setImageUrl(updatedProduct.getImageUrl());
@@ -60,7 +64,7 @@ public class ProductService {
 
             return productRepo.save(existingProduct);
         } else {
-            return null; // or throw an exception
+                return null; // or throw an exception
         }   
      
 
