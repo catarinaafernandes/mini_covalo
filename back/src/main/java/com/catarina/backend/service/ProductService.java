@@ -25,11 +25,21 @@ public class ProductService {
     
     }
 
+
+    public Product getProductById(Long id) {
+        return productRepo.findById(id).orElse(null);
+    }  
+
     //saves a product to the DB
     public Product saveProduct(Product product) {
         return productRepo.save(product);
     }
+
+
+     
+
+
 }
 
 
-//TODO: add error handling for product operations
+// TODO: add error handling for product operations
