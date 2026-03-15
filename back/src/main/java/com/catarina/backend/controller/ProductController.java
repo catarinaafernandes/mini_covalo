@@ -1,6 +1,8 @@
 package com.catarina.backend.controller;
 
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 import com.catarina.backend.service.ProductService;
 import com.catarina.backend.model.Product;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -38,21 +41,33 @@ public class ProductController {
         return productService.getProductById(id);
     }
 
+    //search for products by name, using the searchProductsByName method from the service layer
+    @GetMapping("/search")
+    public List<Product> getAllProducts(@RequestParam (required = false) String search) {
+        if (search != null && !search.isBlank()) {
+            return productService.searchProductsByName(search);
+        } else {
+            return productService.getAllProducts();
+        }
+    }
     //public String test() {
         //return "endpoint of products is working";
 
 
     //creation of new product that persists in the DB, using the saveProduct method from the service layer
     @PostMapping
-    public Product saveProduct(@RequestBody Product product) {
-        return productService.saveProduct(product);
+    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+        Product savedProduct = productService.saveProduct(product);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedProduct);
     }
-
+    
 
     //update an existing product by its id, using the updateProduct method from the service layer
     @PutMapping("/{id}")
-    public Product updateProduct(@PathVariable Long id, @RequestBody Product updatedProduct) {
-        return productService.updateProduct(id, updatedProduct);
+    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product updatedProduct) {
+        Product updated = productService.updateProduct(id, updatedProduct);
+        return ResponseEntity.ok(updated);
+
     //allows suplier company admins to update product info
     //auth and auth not implemented yet
     }

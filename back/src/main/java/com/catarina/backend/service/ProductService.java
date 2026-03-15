@@ -33,6 +33,13 @@ public class ProductService {
         return productRepo.findById(id).orElse(null);
     }  
 
+
+    //search for product
+    public List<Product> searchProductsByName(String search) {
+        return productRepo.findByNameContainingIgnoreCase(search);
+    }
+
+
     //saves a product to the DB
     public Product saveProduct(Product product) {
         return productRepo.save(product);
