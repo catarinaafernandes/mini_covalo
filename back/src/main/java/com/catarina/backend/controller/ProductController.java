@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import com.catarina.backend.service.ProductService;
 import com.catarina.backend.model.Product;
@@ -26,7 +27,7 @@ public class ProductController {
     }
 
     //returns all products from the DB
-    @GetMapping("/products")
+    @GetMapping
     public List<Product> getAllProducts() {
         return productService.getAllProducts();
     }    
@@ -42,11 +43,19 @@ public class ProductController {
 
 
     //creation of new product that persists in the DB, using the saveProduct method from the service layer
-    @PostMapping("/products")
+    @PostMapping
     public Product saveProduct(@RequestBody Product product) {
         return productService.saveProduct(product);
     }
 
-    
-    
+
+    //update an existing product by its id, using the updateProduct method from the service layer
+    @PutMapping("/{id}")
+    public Product updateProduct(@PathVariable Long id, @RequestBody Product updatedProduct) {
+        return productService.updateProduct(id, updatedProduct);
+    //allows suplier company admins to update product info
+    //auth and auth not implemented yet
+    }
+
+
 }

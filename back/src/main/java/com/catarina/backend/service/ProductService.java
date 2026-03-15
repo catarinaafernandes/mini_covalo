@@ -2,6 +2,7 @@ package com.catarina.backend.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.catarina.backend.repo.ProductRepo;
 import com.catarina.backend.model.Product;
@@ -9,8 +10,10 @@ import com.catarina.backend.model.Product;
 
 
 
+
 @Service
 public class ProductService {
+    @Autowired
     //repo used to acess product data from DB
     private final ProductRepo productRepo;
 
@@ -36,9 +39,24 @@ public class ProductService {
     }
 
 
+
+    //updates a product in the DB
+
+    public Product updateProduct(Long id, Product updatedProduct) {
+        Product existingProduct = productRepo.findById(id).orElse(null);
+
+        if (existingProduct != null) {
+            existingProduct.setName(updatedProduct.getName());
+            existingProduct.setDescription(updatedProduct.getDescription());
+            existingProduct.setImageUrl(updatedProduct.getImageUrl());
+            return productRepo.save(existingProduct);
+        } else {
+            return null; // or throw an exception
+        }   
      
 
 
+}
 }
 
 

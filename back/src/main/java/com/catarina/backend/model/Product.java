@@ -5,6 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+
+
 @Entity
 //jpa entity used in the API
 //represents a product in DB and returned by the REST endpoints
@@ -65,5 +67,8 @@ public class Product {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
+
+
 
 }
