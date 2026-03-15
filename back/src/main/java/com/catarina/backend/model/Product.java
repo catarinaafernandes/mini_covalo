@@ -9,7 +9,8 @@ import jakarta.persistence.Id;
 
 @Entity
 //jpa entity used in the API
-//represents a product in DB and returned by the REST endpoints
+//represents a product(ingredient) in DB and returned by the REST endpoints
+// each PRODUCT belongs to a COMPANY
 public class Product {
 
     //these will be columns in the DB table for products

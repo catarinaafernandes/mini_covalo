@@ -62,7 +62,8 @@ public class ProductController {
     }
     
 
-    //update an existing product by its id, using the updateProduct method from the service layer
+    //update an existing product by its id
+    // TO DO: restrict updates ti company admins of the supplier company that owns the product
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product updatedProduct) {
         Product updated = productService.updateProduct(id, updatedProduct);

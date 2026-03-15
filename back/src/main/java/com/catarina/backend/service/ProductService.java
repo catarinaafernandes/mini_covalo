@@ -10,7 +10,7 @@ import com.catarina.backend.model.Product;
 
 
 
-
+//service responsible for product business logic
 @Service
 public class ProductService {
     @Autowired
@@ -28,7 +28,7 @@ public class ProductService {
     
     }
 
-
+    //returns a product by its id
     public Product getProductById(Long id) {
         return productRepo.findById(id).orElse(null);
     }  
