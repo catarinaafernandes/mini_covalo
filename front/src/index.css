@@ -109,3 +109,13 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+
+div:hover .back-text {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.product-hover-overlay:hover {
+  opacity: 1;
+}

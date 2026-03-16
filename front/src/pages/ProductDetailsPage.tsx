@@ -14,6 +14,39 @@ function ProductDetailsPage() {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  <div
+  onClick={() => navigate("/")}
+  style={{
+    display: "flex",
+    alignItems: "center",
+    cursor: "pointer",
+    marginBottom: "24px",
+    width: "fit-content",
+  }}
+>
+  <span
+  style={{
+    opacity: 0,
+    transform: "translateX(-5px)",
+    transition: "all 0.2s",
+    color: "#6b7280",
+    fontWeight: 500,
+  }}
+  className="back-text"
+>
+  Back to products
+</span>
+  <span
+    style={{
+      fontSize: "24px",
+      marginRight: "8px",
+      transition: "transform 0.2s",
+    }}
+  >
+    ←
+  </span>
+</div>
+
   // Fetch a single product by id
   useEffect(() => {
     fetch(`http://localhost:8080/products/${id}`)
