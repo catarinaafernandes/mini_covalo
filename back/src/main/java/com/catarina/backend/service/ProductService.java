@@ -1,6 +1,7 @@
 package com.catarina.backend.service;
 
 import java.util.List;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 import com.catarina.backend.repo.ProductRepo;
 import com.catarina.backend.model.Product;
@@ -27,8 +28,8 @@ public class ProductService {
     }
 
     //returns a product by its id
-    public Product getProductById(Long id) {
-        return productRepo.findById(id).orElse(null);
+    public Optional<Product> getProductById(Long id) {
+        return productRepo.findById(id);
     }  
 
 
@@ -49,28 +50,27 @@ public class ProductService {
 
 
     //updates a product in the DB
-    public Product updateProduct(Long id, Product updatedProduct) {
-        Product existingProduct = productRepo.findById(id).orElse(null);
-        
+    public  Optional<Product> updateProduct(Long id, Product updatedProduct) {
+        return productRepo.findById(id).map(existingProduct -> {
 
-        if (existingProduct != null) {
-            if (updatedProduct.getCompany() == null) {
-                throw new IllegalArgumentException("Product must be associated with a company");
-            }   
+        
+        if (updatedProduct.getCompany() == null) {
+            throw new IllegalArgumentException("Product must be associated with a company");
+        }
+
             existingProduct.setName(updatedProduct.getName());
             existingProduct.setDescription(updatedProduct.getDescription());
             existingProduct.setImageUrl(updatedProduct.getImageUrl());
             existingProduct.setCompany(updatedProduct.getCompany());
 
             return productRepo.save(existingProduct);
-        } else {
-                return null; // or throw an exception
+        }   ); 
+                
         }   
      
 
 
 }
-}
 
 
-// TO DO: add error handling for product operations
+

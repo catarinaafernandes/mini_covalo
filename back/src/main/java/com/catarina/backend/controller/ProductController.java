@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.web.bind.annotation.PathVariable;
 
-
 import java.util.List;
 
 
@@ -39,8 +38,14 @@ public class ProductController {
 
     //returns a product by its id
     @GetMapping("/{id}")
-    public Product getProductById(@PathVariable Long id) {
-        return productService.getProductById(id);
+    public ResponseEntity<Product> getProductById(@PathVariable Long id) {
+        Product product = productService.getProductById(id).orElse(null);
+
+        if (product == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(product);
     }
 
     //search for products by name, using the searchProductsByName method from the service layer
@@ -68,12 +73,16 @@ public class ProductController {
     // TO DO: restrict updates ti company admins of the supplier company that owns the product
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product updatedProduct) {
-        Product updated = productService.updateProduct(id, updatedProduct);
-        return ResponseEntity.ok(updated);
+        Product updated = productService.updateProduct(id, updatedProduct).orElse(null);
 
+        if (updated == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(updated);
+    }
     //allows suplier company admins to update product info
     //auth and auth not implemented yet
-    }
+         
 
 
 }
