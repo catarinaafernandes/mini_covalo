@@ -90,37 +90,35 @@ Some decisions were made to keep the project simple, clear and easy to extend:
 .
 ├── README.md
 ├── back
-│   ├── HELP.md
-│   ├── mvnw
-│   ├── mvnw.cmd
-│   ├── pom.xml
-│   └── src
-│       ├── main
-│       └── test
+│   ├── HELP.md
+│   ├── mvnw
+│   ├── mvnw.cmd
+│   ├── pom.xml
+│   └── src
+│       ├── main
+│       └── test
 └── front
     ├── eslint.config.js
     ├── index.html
     ├── package-lock.json
     ├── package.json
     ├── public
-    │   ├── favicon.svg
-    │   └── icons.svg
+    │   ├── favicon.svg
+    │   └── icons.svg
     ├── src
-    │   ├── App.css
-    │   ├── App.tsx
-    │   ├── assets
-    │   ├── components
-    │   ├── index.css
-    │   ├── main.tsx
-    │   ├── pages
-    │   ├── services
-    │   └── types
+    │   ├── App.css
+    │   ├── App.tsx
+    │   ├── assets
+    │   ├── components
+    │   ├── index.css
+    │   ├── main.tsx
+    │   ├── pages
+    │   ├── services
+    │   └── types
     ├── tsconfig.app.json
     ├── tsconfig.json
     ├── tsconfig.node.json
     └── vite.config.ts
-
-13 directories, 19 files
 ```
 
 ## Running the Backend
