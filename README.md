@@ -10,6 +10,14 @@ And of course — Covalo’s mascot is a flamingo 🦩
 A group of flamingos is called a *flock*, so this project is my attempt at joining the flock!
 
 
+## Business Logic
+Business logic is implemented in the service layer.
+
+Relations:
+User → belongs to a Company  
+Company → manages Products  
+Product → is associated with a Company  
+
 
 ## Features
 
@@ -50,7 +58,7 @@ Java:
 17.0.18
 
 Spring Boot:
-3.5.11
+3.x
 
 Node.js:
 24.14.0
@@ -72,17 +80,19 @@ The project was developed and tested with:
 - Spring Boot 3
 
 
-## Architecture Notes
-
 
 ## Design Notes
 
-Some decisions were made to keep the project simple, clear and easy to extend:
+The project was designed to stay simple, clear and easy to extend.
 
-- The backend follows a layered architecture to separate responsibilities between controller, service and repository.
-- The frontend is organized into pages, reusable components, services and types to keep concerns separated.
-- I prioritized delivering the core product flows first: listing, details, search, creation and update.
-- The goal was to keep the implementation readable and practical, while leaving room for future improvements.
+The main product flows were implemented first (listing, details, search, creation and update) to ensure the core functionality of the application was delivered early.
+
+The implementation prioritizes readability and a clear structure.
+During early development, product search was implemented client-side on top of the fetched product list to quickly validate the UI behaviour and interaction flow.
+
+In the final architecture, search is exposed through a backend endpoint (`/products/search`), which provides a more scalable approach and better reflects typical production systems.
+
+CORS is enabled in the backend controller to allow the local React frontend to communicate with the API during development.
 
 
 ## Structure
@@ -155,7 +165,7 @@ PUT /products/{id} -> Update a product
 
 ## Testing 
 
-The backend includes a basic Spring Boot context-load test to validate that the application starts correctly and the main configuration is working as expected
+The backend includes a basic Spring Boot context load test to validate that the application starts correctly and the main configuration is working as expected
 
 Run tests with:
 
@@ -171,20 +181,27 @@ A Postman collection is included to test the API endpoints.
 
 It can be imported directly into Postman to validate the API behaviour and quickly test the main product flows.
 
-Architecture Notes
 
-The backend follows a layered architecture:
+## Architecture Notes
 
-Controller → handles HTTP requests
+The backend is structured using a layered approach:
 
-Service → contains business logic
+Controller: receives HTTP requests and returns responses  
+Service: contains the application’s business logic  
+Repos: handles database interaction  
 
-Repository → manages database access
+This structure improves separation of concerns and keeps the codebase easier to maintain and extend.
+The design also reflects some SOLID principles:
 
-This separation keeps the project easier to read, maintain and extend.
+- **Single Responsibility Principle**: controllers focus only on request/response handling, services implement business logic, and repositories manage persistence.
+- **Dependency Inversion Principle**: controllers depend on the service layer instead of directly interacting with the database.
+- **Open/Closed Principle**: new business logic can be introduced in the service layer without modifying controllers.
 
-On the frontend, the code is organized into pages, reusable components, services and types for better separation of concerns.
+The repository layer uses Spring Data JPA to handle database access.
 
+On the frontend, the application is organized into pages, reusable components, services and types to keep UI logic and API communication separated.
+
+The API follows a REST-style CRUD approach, exposing endpoints to create, read and update products.
 
 
 ##  Future Improvements
