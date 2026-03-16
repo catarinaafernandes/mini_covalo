@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import Product from "./ProductCard";
+import type {Product} from "../types/product";
 
 type ProductCardProps = {
   product: Product;
@@ -13,10 +13,10 @@ function ProductCard({ product }: ProductCardProps) {
       onClick={() => navigate(`/product/${product.id}`)}
       style={{
         position: "relative",
-        backgroundColor: "#ffffff",
+        backgroundColor: "#fff7fb",
         border: "1px solid #e5e7eb",
         borderRadius: "18px",
-        minHeight: "150px",
+        minHeight: "100px",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -29,11 +29,13 @@ function ProductCard({ product }: ProductCardProps) {
       onMouseEnter={(e) => {
         e.currentTarget.style.transform = "translateY(-6px)";
         e.currentTarget.style.boxShadow = "0 14px 30px rgba(0,0,0,0.12)";
+        e.currentTarget.style.backgroundColor = "#fdecf3";
       }}
 
         onMouseLeave={(e) => { 
         e.currentTarget.style.transform = "translateY(0)";
         e.currentTarget.style.boxShadow = "0 6px 18px rgba(0,0,0,0.06)";
+        e.currentTarget.style.backgroundColor = "#fff7fb";
       } }
     >
       <h3

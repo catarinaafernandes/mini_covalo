@@ -110,12 +110,48 @@ code {
   background: var(--code-bg);
 }
 
+.back-text {
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: all 0.2s ease;
+  color: #6b7280;
+  font-weight: 500;
+}
 
-div:hover .back-text {
+.back-wrapper:hover .back-text {
   opacity: 1;
   transform: translateX(0);
 }
 
-.product-hover-overlay:hover {
-  opacity: 1;
+.back-wrapper:hover span {
+  transform: translateX(-4px);
 }
+
+.back-wrapper:hover span {
+  transform: translateX(-4px);
+}
+
+.product-hover-overlay {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  backdrop-filter: blur(2px);
+}
+.product-card-wrapper {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.product-card-wrapper:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.12);
+}
+
+.header {
+  margin-bottom: 40px;
+}
+
+
+.search-input::placeholder
+  {
+    color: #9ca3af;
+    opacity: 1;
+  }

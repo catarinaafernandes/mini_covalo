@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { getProductById } from "../services/productService";
+import type {Product} from "../types/product";
+import covaloLogo from "../assets/covalo-logo.png";
 
-type Product = {
-  id: number;
-  name: string;
-  description: string;
-};
 
 function ProductDetailsPage() {
   const [product, setProduct] = useState<Product | null>(null);
@@ -14,62 +12,39 @@ function ProductDetailsPage() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  <div
-  onClick={() => navigate("/")}
-  style={{
-    display: "flex",
-    alignItems: "center",
-    cursor: "pointer",
-    marginBottom: "24px",
-    width: "fit-content",
-  }}
->
-  <span
-  style={{
-    opacity: 0,
-    transform: "translateX(-5px)",
-    transition: "all 0.2s",
-    color: "#6b7280",
-    fontWeight: 500,
-  }}
-  className="back-text"
->
-  Back to products
-</span>
-  <span
-    style={{
-      fontSize: "24px",
-      marginRight: "8px",
-      transition: "transform 0.2s",
-    }}
-  >
-    ←
-  </span>
-</div>
-
-  // Fetch a single product by id
+  //fetch product details
   useEffect(() => {
-    fetch(`http://localhost:8080/products/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setProduct(data);
-        setLoading(false);
-      })
-      .catch((err) => console.error(err));
-  }, [id]);
+  async function fetchProduct() {
+    if (!id) {
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const data = await getProductById(id);
+      setProduct(data);
+    } catch (error) {
+      console.error("Error fetching product:", error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  fetchProduct();
+}, [id]);
 
   if (loading) {
     return (
       <div
         style={{
           padding: "40px",
-          fontFamily: "Arial",
+          fontFamily: "Arial, sans-serif",
           textAlign: "center",
           maxWidth: "700px",
-          margin: "0 auto"
+          margin: "0 auto",
         }}
       >
-        <h1>Loading product...</h1>
+        <h2>Loading product...</h2>
       </div>
     );
   }
@@ -79,34 +54,145 @@ function ProductDetailsPage() {
       <div
         style={{
           padding: "40px",
-          fontFamily: "Arial",
+          fontFamily: "Arial, sans-serif",
           textAlign: "center",
           maxWidth: "700px",
-          margin: "0 auto"
+          margin: "0 auto",
         }}
       >
-        <h1>Product not found.</h1>
-        <button onClick={() => navigate("/")}>Back</button>
+        <div
+          className="back-wrapper"
+          onClick={() => navigate("/")}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            cursor: "pointer",
+            marginBottom: "28px",
+            width: "fit-content",
+          }}
+        >
+          <span
+            style={{
+              fontSize: "26px",
+              marginRight: "8px",
+              transition: "transform 0.2s",
+            }}
+          >
+            ←
+          </span>
+
+          <span className="back-text"
+          style={{
+            fontSize: "18px",
+          }}
+          >Back to products</span>
+        </div>
+
+        <h2>Product not found.</h2>
       </div>
     );
   }
+
+  const p = product;
 
   return (
     <div
       style={{
         padding: "40px",
-        fontFamily: "Arial",
+        fontFamily: "Arial, sans-serif",
         maxWidth: "700px",
-        margin: "0 auto"
+        margin: "0 auto",
+        backgroundColor: "#fff7fb",
+        minHeight: "100vh",
       }}
     >
-      <button className="back-button" onClick={() => navigate("/")}>
-        ← Back to products
-      </button>
+      <div
+        className="back-wrapper"
+        onClick={() => navigate("/")}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          cursor: "pointer",
+          marginBottom: "28px",
+          width: "fit-content",
+        }}
+      >
+        <span
+          style={{
+            fontSize: "46px",
+            marginRight: "10px",
+            transition: "transform 0.2s",
+            lineHeight: 1,
+            color: "#831843",
+          }}
+        >
+          ←
+        </span>
 
-      <div className="product-details">
-        <h1>{product.name}</h1>
-        <p>{product.description}</p>
+        <span className="back-text">Back to products</span>
+      </div>
+
+<div
+  style={{
+  padding: "40px",
+  fontFamily: "Arial, sans-serif",
+  maxWidth: "700px",
+  margin: "0 auto",
+  backgroundColor: "#fff7fb",
+  minHeight: "100vh",
+  backgroundImage: `url(${covaloLogo})`,
+  backgroundRepeat: "no-repeat",
+  backgroundPosition: "top right",
+  backgroundSize: "120px",
+}}
+>
+  
+</div>
+
+      <div
+        style={{
+          background: "#ffffff",
+          borderRadius: "20px",
+          padding: "36px",
+          border: "1px solid #e5e7eb",
+          boxShadow: "0 12px 30px rgba(0,0,0,0.08)",
+        }}
+      >
+        <h1
+          style={{
+            marginTop: 0,
+            fontSize: "42px",
+            color: "#111827",
+          }}
+        >
+          {p.name}
+        </h1>
+
+        <div
+          style={{
+            height: "220px",
+            background: "#f9fafb",
+            borderRadius: "12px",
+            margin: "24px 0",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "#9ca3af",
+            fontWeight: 600,
+          }}
+        >
+          Product visual
+        </div>
+
+        <p
+          style={{
+            fontSize: "18px",
+            lineHeight: 1.6,
+            color: "#374151",
+          }}
+        >
+          {p.description}
+        </p>
       </div>
     </div>
   );
