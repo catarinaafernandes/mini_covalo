@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 
 
-@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:5174"}) //allowing cross-origin requests from the frontend
+@CrossOrigin(origins = {"*"}) //allowing cross-origin requests from the frontend
 @RestController
 @RequestMapping("/products")
 public class ProductController {

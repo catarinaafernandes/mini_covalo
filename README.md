@@ -185,29 +185,35 @@ A Postman collection is included to test the API endpoints.
 It can be imported directly into Postman to validate the API behaviour and quickly test the main product flows.
 
 
+
 ## Architecture Notes
 
-The backend is structured using a layered approach:
+The backend follows a layered architecture:
 
-Controller: receives HTTP requests and returns responses  
-Service: contains the application’s business logic  
-Repository: handles database interaction  
+- Controller: handles HTTP requests and responses  
+- Service: contains business logic  
+- Repository: manages database access  
 
-This structure improves separation of concerns and keeps the codebase easier to maintain and extend.
-The design also reflects some SOLID principles:
+This separation improves maintainability and scalability.
+The design follows key SOLID principles:
 
-- **Single Responsibility Principle**: controllers focus only on request/response handling, services implement business logic, and repositories manage persistence.
-- **Dependency Inversion Principle**: controllers depend on the service layer instead of directly interacting with the database.
-- **Open/Closed Principle**: new business logic can be introduced in the service layer without modifying controllers.
+- **Single Responsibility Principle**: each layer has a clear responsibility.  
+- **Dependency Inversion Principle**: Spring Boot uses Inversion of Control (IoC) to inject dependencies (`@Service`, `@Repository`), promoting loose coupling.  
+- **Open/Closed Principle**: new logic can be added in the service layer without modifying existing code. On the frontend, reusable components (e.g. `ProductCard`, `PageHeader`) support extension without changes.
 
-The repository layer uses Spring Data JPA to handle database access.
+Spring Data JPA is used for database interaction.
+The frontend is structured into pages, components, services and types to separate UI and API logic.
 
-On the frontend, the application is organized into pages, reusable components, services and types to keep UI logic and API communication separated.
+The API follows a REST-style CRUD approach.
 
-The API follows a REST-style CRUD approach, exposing endpoints to create, read and update products.
+Roles (SUPER_ADMIN, COMPANY_ADMIN) are defined in the domain. Authentication and authorization are not implemented yet and are planned as future improvements.
 
-Roles (SUPER_ADMIN and COMPANY_ADMIN) are modeled in the domain.
-Authentication and role-based authorization are not implemented yet and are listed as a future improvement.
+The architecture uses common design patterns:
+
+- **Repository Pattern**: abstracts database access via Spring Data JPA  
+- **Layered architecture**: separates controllers, services and repositories  (MVC)
+- **Component-based design (frontend)**: reusable React components
+
 
 
 ##  Future Improvements
@@ -215,6 +221,3 @@ Authentication and role-based authorization are not implemented yet and are list
 Possible improvements for the project could include: pagination for product lists, improved UI styling and responsiveness, authentication and authorization, admin features for managing companies and users and more tests
 
 
-
-##  Interface preview
-Let´s take a look at the pages
