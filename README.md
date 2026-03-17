@@ -72,27 +72,16 @@ PostgreSQL:
 Maven:
 Maven Wrapper (./mvnw) included in the project
 
-
-
-## Project 
-The project was developed and tested with:
-- Java 17
-- Spring Boot 3
-
-
-
 ## Design Notes
 
 The project was designed to stay simple, clear and easy to extend.
 
-The main product flows were implemented first (listing, details, search, creation and update) to ensure the core functionality of the application was delivered early.
+Core product flows (listing, details, search, creation and update) were implemented first to ensure the main functionality of the application.
 
-The implementation prioritizes readability and a clear structure.
-During early development, product search was implemented client-side on top of the fetched product list to quickly validate the UI behaviour and interaction flow.
+Search was initially implemented client-side to validate UI behaviour. In the final version it is exposed through a backend endpoint (`/products/search`) for a more scalable architecture.
 
-In the final architecture, search is exposed through a backend endpoint (`/products/search`), which provides a more scalable approach and better reflects typical production systems.
+CORS is enabled to allow the local React frontend to communicate with the API during development.
 
-CORS is enabled in the backend controller to allow the local React frontend to communicate with the API during development.
 
 
 ## Structure
@@ -135,7 +124,7 @@ CORS is enabled in the backend controller to allow the local React frontend to c
 
 ```bash
 cd back
-mvn spring-boot:run
+./mvnw spring-boot:run
 ```
 
 The backend API will run on:
@@ -163,6 +152,20 @@ POST /products -> Create a product
 PUT /products/{id} -> Update a product
 
 
+## Admin API Endpoints
+
+### Companies
+GET /companies -> List companies  
+POST /companies -> Create a company  
+PUT /companies/{id} -> Update a company  
+
+### Users
+GET /users -> List users  
+GET /users/{id} -> Get user details  
+POST /users -> Create a user  
+PUT /users/{id} -> Update a user (including role)
+
+
 ## Testing 
 
 The backend includes a basic Spring Boot context load test to validate that the application starts correctly and the main configuration is working as expected
@@ -188,7 +191,7 @@ The backend is structured using a layered approach:
 
 Controller: receives HTTP requests and returns responses  
 Service: contains the application’s business logic  
-Repos: handles database interaction  
+Repository: handles database interaction  
 
 This structure improves separation of concerns and keeps the codebase easier to maintain and extend.
 The design also reflects some SOLID principles:
@@ -203,10 +206,13 @@ On the frontend, the application is organized into pages, reusable components, s
 
 The API follows a REST-style CRUD approach, exposing endpoints to create, read and update products.
 
+Roles (SUPER_ADMIN and COMPANY_ADMIN) are modeled in the domain.
+Authentication and role-based authorization are not implemented yet and are listed as a future improvement.
+
 
 ##  Future Improvements
 
-Possible improvements for the project could include: pagination for product lists, improved UI styling and responsiveness, authentication, admin features for managing companies and users and more tests
+Possible improvements for the project could include: pagination for product lists, improved UI styling and responsiveness, authentication and authorization, admin features for managing companies and users and more tests
 
 
 

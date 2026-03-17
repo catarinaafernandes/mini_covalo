@@ -67,7 +67,7 @@ function ProductDetailsPage() {
             display: "flex",
             alignItems: "center",
             cursor: "pointer",
-            marginBottom: "28px",
+            marginBottom: "20px",
             width: "fit-content",
           }}
         >
@@ -96,16 +96,46 @@ function ProductDetailsPage() {
   const p = product;
 
   return (
+  <div
+    style={{
+      minHeight: "100vh",
+      backgroundColor: "#0f172a",
+      fontFamily: "Arial, sans-serif",
+    }}
+  >
+
     <div
-      style={{
-        padding: "40px",
-        fontFamily: "Arial, sans-serif",
-        maxWidth: "700px",
-        margin: "0 auto",
-        backgroundColor: "#fff7fb",
-        minHeight: "100vh",
-      }}
-    >
+  style={{
+    width: "100%",
+    backgroundColor: "#fde7ef",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: "24px 16px",
+    boxSizing: "border-box",
+  }}
+>
+  <img
+    src={covaloLogo}
+    alt="Covalo logo"
+    style={{
+      maxWidth: "220px",
+      width: "100%",
+      height: "auto",
+      objectFit: "contain",
+    }}
+  />
+</div>
+
+<div
+  style={{
+    maxWidth: "700px",
+    margin: "0 auto",
+    padding: "24px 20px 40px",
+    boxSizing: "border-box",
+  }}
+></div>
+    
       <div
         className="back-wrapper"
         onClick={() => navigate("/")}
@@ -129,71 +159,66 @@ function ProductDetailsPage() {
           ←
         </span>
 
-        <span className="back-text">Back to products</span>
-      </div>
-
-<div
+       <span
+  className="back-text"
   style={{
-  padding: "40px",
-  fontFamily: "Arial, sans-serif",
-  maxWidth: "700px",
-  margin: "0 auto",
-  backgroundColor: "#fff7fb",
-  minHeight: "100vh",
-  backgroundImage: `url(${covaloLogo})`,
-  backgroundRepeat: "no-repeat",
-  backgroundPosition: "top right",
-  backgroundSize: "120px",
-}}
+    fontSize: "18px",
+    color: "#f472b6",
+    opacity: 1
+  }}
 >
-  
-</div>
-
-      <div
-        style={{
-          background: "#ffffff",
-          borderRadius: "20px",
-          padding: "36px",
-          border: "1px solid #e5e7eb",
-          boxShadow: "0 12px 30px rgba(0,0,0,0.08)",
-        }}
-      >
-        <h1
-          style={{
-            marginTop: 0,
-            fontSize: "42px",
-            color: "#111827",
-          }}
-        >
-          {p.name}
-        </h1>
-
-        <div
-          style={{
-            height: "220px",
-            background: "#f9fafb",
-            borderRadius: "12px",
-            margin: "24px 0",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "#9ca3af",
-            fontWeight: 600,
-          }}
-        >
-          Product visual
-        </div>
-
-        <p
-          style={{
-            fontSize: "18px",
-            lineHeight: 1.6,
-            color: "#374151",
-          }}
-        >
-          {p.description}
-        </p>
+  Back to products
+</span>
       </div>
+
+    <div
+  style={{
+    background: "#ffffff",
+    borderRadius: "20px",
+    padding: "32px",
+    border: "1px solid #e5e7eb",
+    boxShadow: "0 12px 30px rgba(0,0,0,0.08)",
+  }}
+>
+  <h1
+    style={{
+      marginTop: 0,
+      fontSize: "42px",
+      color: "#2d1b3d",
+      textAlign: "center",
+    }}
+  >
+    {p.name}
+  </h1>
+
+  <div
+    style={{
+      height: "220px",
+      background: "#f9fafb",
+      borderRadius: "12px",
+      margin: "24px 0",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      color: "#9ca3af",
+      fontWeight: 600,
+    }}
+  >
+    Product visual
+  </div>
+
+  <p
+    style={{
+      fontSize: "18px",
+      lineHeight: 1.6,
+      color: "#374151",
+      margin: 0,
+      textAlign: "center",
+    }}
+  >
+    {p.description}
+  </p>
+</div>
     </div>
   );
 }

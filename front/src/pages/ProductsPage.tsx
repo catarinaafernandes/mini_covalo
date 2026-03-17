@@ -135,18 +135,23 @@ function ProductsPage() {
       </div>
 
       {/* Covalo logo no canto inferior direito */}
-      <img
-        src={covaloLogo}
-        alt="Covalo"
-        style={{
-          position: "fixed",
-          bottom: "20px",
-          right: "22px",
-          height: "28px",
-          opacity: 0.35,
-          pointerEvents: "none",
-        }}
-      />
+      <div
+  style={{
+    display: "flex",
+    justifyContent: "flex-end",
+    padding: "40px 30px",
+    backgroundColor: "#111827"
+  }}
+>
+  <img
+    src={covaloLogo}
+    alt="Covalo"
+    style={{
+      height: "120px",
+      opacity: 0.25
+    }}
+  />
+</div>
     </>
   );
 }
