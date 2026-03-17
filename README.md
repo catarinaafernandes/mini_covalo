@@ -30,47 +30,16 @@ Product → is associated with a Company
 - Persist product data with PostgreSQL
 
 
-# Tech stack
-## Backend
-
-- Java 17
-- Spring Boot
-- PostgreSQL
-- Maven
-
-## Frontend
-
-- React
-- TypeScript
-- Vite
-
-
-# Tools
-Maven
-Node.js
-npm
-
-
-
 ## Environment Requirements
 
-Java:
-17.0.18
+- Java 17  
+- Spring Boot 3.x  
+- Node.js 24.14.0  
+- npm 11.9.0  
+- PostgreSQL 16.13  
+- Maven Wrapper 
 
-Spring Boot:
-3.x
 
-Node.js:
-24.14.0
-
-npm:
-11.9.0
-
-PostgreSQL:
-16.13
-
-Maven:
-Maven Wrapper (./mvnw) included in the project
 
 ## Design Notes
 
@@ -188,36 +157,38 @@ It can be imported directly into Postman to validate the API behaviour and quick
 
 ## Architecture Notes
 
-The backend follows a layered architecture:
+The backend follows a layered architecture (MVC). This separation improves maintainability and scalability.
 
 - Controller: handles HTTP requests and responses  
 - Service: contains business logic  
 - Repository: manages database access  
 
-This separation improves maintainability and scalability.
-The design follows key SOLID principles:
+
+
+The design follows some SOLID principles:
 
 - **Single Responsibility Principle**: each layer has a clear responsibility.  
 - **Dependency Inversion Principle**: Spring Boot uses Inversion of Control (IoC) to inject dependencies (`@Service`, `@Repository`), promoting loose coupling.  
 - **Open/Closed Principle**: new logic can be added in the service layer without modifying existing code. On the frontend, reusable components (e.g. `ProductCard`, `PageHeader`) support extension without changes.
 
+
 Spring Data JPA is used for database interaction.
 The frontend is structured into pages, components, services and types to separate UI and API logic.
-
 The API follows a REST-style CRUD approach.
+
 
 Roles (SUPER_ADMIN, COMPANY_ADMIN) are defined in the domain. Authentication and authorization are not implemented yet and are planned as future improvements.
 
-The architecture uses common design patterns:
+
+The architecture also uses common design patterns:
 
 - **Repository Pattern**: abstracts database access via Spring Data JPA  
-- **Layered architecture**: separates controllers, services and repositories  (MVC)
 - **Component-based design (frontend)**: reusable React components
 
 
 
 ##  Future Improvements
 
-Possible improvements for the project could include: pagination for product lists, improved UI styling and responsiveness, authentication and authorization, admin features for managing companies and users and more tests
+Possible improvements for the project could include: pagination for product lists, improved UI styling and responsiveness, authentication and authorization, admin features for managing companies and users and more tests. Also improve product URLs to be more user-friendly (e.g. `/product/retinol-serum` instead of `/product/3`)
 
 
