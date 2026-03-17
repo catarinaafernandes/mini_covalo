@@ -30,7 +30,7 @@ Product → is associated with a Company
 - Persist product data with PostgreSQL
 
 
-## Environment Requirements
+## Requirements
 
 - Java 17  
 - Spring Boot 3.x  
@@ -99,6 +99,7 @@ cd back
 The backend API will run on:
 http://localhost:8080
 
+
 ## Running the Frontend
 
 ```bash
@@ -106,6 +107,7 @@ cd front
 npm install
 npm run dev
 ```
+Runs on http://localhost:5173(or next available port)
 
 
 ## Main API Endpoints
