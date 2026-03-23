@@ -57,21 +57,23 @@ public class CompanyController {
     //auth and auth not implemented yet
     @PutMapping("/{id}")
     public ResponseEntity<Company> updateCompany(@PathVariable Long id, @RequestBody Company updatedCompany) {
-        Company updated = companyService.updateCompany(id, updatedCompany);
+     Company updated = companyService.updateCompany((id;), updatedCompany)   
 
-        if (updated != null) {
-            return ResponseEntity.ok(updated);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+     if (updated == null) {
+        return ResponseEntity.notFound().build();
+     }
+    return ResponseEntity.ok(updated);
+    }
+
+  
 
 
-    // TO DO: add delete endpoint for companies, restrict to companies (not mentioned in stories)
+    // TO DO:  restrict updates do SUPER_ADMIN
 
         
         }
 
-}
+
 
 
 
