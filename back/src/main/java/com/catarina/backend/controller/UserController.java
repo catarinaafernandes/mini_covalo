@@ -48,8 +48,13 @@ public class UserController {
 
     //update an existing user by its id
     @PutMapping("/{id}")
-    public User updatUser(@PathVariable Long id, @RequestBody User updatedUser) {
-        return userService.updateUser(id, updatedUser);
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User updatUser){
+        User updated = userService.updateUser((id), updatUser);
+        if(updated == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(updated);
     
         }   
 
