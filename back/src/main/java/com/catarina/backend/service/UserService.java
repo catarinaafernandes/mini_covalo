@@ -7,6 +7,7 @@ import com.catarina.backend.repo.UserRepo;
 import com.catarina.backend.model.Role;
 import com.catarina.backend.model.User;
 
+
 //user business logic here
 @Service
 public class UserService {
@@ -30,9 +31,7 @@ public class UserService {
 
     //create a new user in the DB
     public User saveUser(User user) {
-        if (user.getRole() == Role.COMPANY_ADMIN && user.getCompany() == null) {
-            throw new IllegalArgumentException("Company Admin must be associated with a company");
-        }
+        validateUserRoleRules(user);
         return userRepo.save(user);
     }
 
@@ -43,9 +42,7 @@ public class UserService {
 
         if (existingUser != null) {
 
-            if(updatedUser.getRole() == Role.COMPANY_ADMIN && updatedUser.getCompany() == null) {
-                throw new IllegalArgumentException("Company Admin must be associated with a company");
-            }
+            validateUserRoleRules(updatedUser);
 
             existingUser.setName(updatedUser.getName());
             existingUser.setEmail(updatedUser.getEmail());
@@ -54,9 +51,18 @@ public class UserService {
 
             return userRepo.save(existingUser);
         } else {
-            return null;
+            return userRepo.save(existingUser);
+
+    }
+}
+       
+         //new method with validation logic to avoid having that logic duplictae din updated and save  
+private void validateUserRoleRules(User user){
+    if(user.getRole()==Role.COMPANY_ADMIN && user.getCompany() == null){
+        throw new IllegalArgumentException("COMPANY_ADMIN should be associated to a company");
         }
     }
-
-    //
 }
+
+
+    
