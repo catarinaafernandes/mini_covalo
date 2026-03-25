@@ -41,22 +41,19 @@ public class ProductService {
 
     //saves a product to the DB
     public Product saveProduct(Product product) {
-        if (product.getCompany() == null) {
-            throw new IllegalArgumentException("Product must be associated with a company");
-        }
+        validateProductRules(product);
+    
         return productRepo.save(product);
+    
     }
-
 
 
     //updates a product in the DB
     public  Optional<Product> updateProduct(Long id, Product updatedProduct) {
         return productRepo.findById(id).map(existingProduct -> {
 
+            validateProductRules(updatedProduct);
         
-        if (updatedProduct.getCompany() == null) {
-            throw new IllegalArgumentException("Product must be associated with a company");
-        }
 
             existingProduct.setName(updatedProduct.getName());
             existingProduct.setDescription(updatedProduct.getDescription());
@@ -64,9 +61,20 @@ public class ProductService {
             existingProduct.setCompany(updatedProduct.getCompany());
 
             return productRepo.save(existingProduct);
-        }   ); 
+    
+    
+        } )  ; 
                 
-        }   
+    }   
+
+    private void validateProductRules(Product product) {
+        if (product.getCompany() == null) {
+            throw new IllegalArgumentException("Product has to be associated with a Company");
+        }
+
+    }
+
+    
      
 
 
