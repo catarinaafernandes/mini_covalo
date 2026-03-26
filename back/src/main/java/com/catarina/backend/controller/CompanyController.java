@@ -57,7 +57,7 @@ public class CompanyController {
     //auth and auth not implemented yet
     @PutMapping("/{id}")
     public ResponseEntity<Company> updateCompany(@PathVariable Long id, @RequestBody Company updatedCompany) {
-     Company updated = companyService.updateCompany((id;), updatedCompany)   
+     Company updated = companyService.updateCompany((id), updatedCompany);   
 
      if (updated == null) {
         return ResponseEntity.notFound().build();
